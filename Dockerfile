@@ -1,12 +1,12 @@
-FROM debian:wheezy
+FROM debian:latest
 
-MAINTAINER Henrik Sachse <t3x7m3@posteo.de>
+MAINTAINER Vishal Patil <vishpat@gmail.com>
 
 #############################################
 # ApacheDS installation
 #############################################
 
-ENV APACHEDS_VERSION 2.0.0-M19
+ENV APACHEDS_VERSION 2.0.0.AM26
 ENV APACHEDS_ARCH amd64
 
 ENV APACHEDS_ARCHIVE apacheds-${APACHEDS_VERSION}-${APACHEDS_ARCH}.deb
@@ -19,7 +19,7 @@ VOLUME ${APACHEDS_DATA}
 ADD http://mirror.softaculous.com/apache/directory/apacheds/dist/${APACHEDS_VERSION}/${APACHEDS_ARCHIVE} ${APACHEDS_ARCHIVE}
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
     && apt-get update \
-    && apt-get install -y ldap-utils procps openjdk-7-jre-headless \
+    && apt-get install -y ldap-utils procps openjdk-11-jre-headless \
     && dpkg -i ${APACHEDS_ARCHIVE} \
 	&& rm ${APACHEDS_ARCHIVE}
 
